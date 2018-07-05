@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  const ws = new WebSocket('ws://:3000');
+  const ws = new WebSocket('wss://mailruindicate-direction-pjkesroeld.now.sh');
 
   // function setStatus (val) {
   //   status.innerHTML = val;

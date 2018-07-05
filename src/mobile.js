@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  const ws = new WebSocket('ws://mailruindicate-direction-ws-alftrpybyy.now.sh:3000');
+  const ws = new WebSocket('wss://mailruindicate-direction-pjkesroeld.now.sh');
 
   function setStatus (val) {
     status.innerHTML = val;
