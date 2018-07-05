@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start-static": "node server/static-server.js",
-    "start-ws": "node server/ws-server.js",
-    "start": "concurrently \"npm run start-static\" \"npm run start-ws\""
+    "start": "node server/static-server.js"
   },
   "author": "Aleksei Shirochenkov",
   "license": "ISC",
