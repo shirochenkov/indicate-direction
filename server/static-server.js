@@ -3,7 +3,7 @@ const express = require("express");
 const mobile = require('is-mobile');
 
 const app = express();
-const port = 8080;
+const port = process.env.PORT || 8000;
 
 const mainPath = path.join(__dirname, '../');
 app.use(express.static(mainPath));
