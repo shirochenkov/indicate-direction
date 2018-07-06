@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
-  const actions = document.getElementById("actions");
+  const ws = new WebSocket('wss://mailruindicate-direction-ws-mjmrtjqmqa.now.sh');
+
+  const wrapper = document.querySelector(".actions__wrapper");
+  const actions = document.querySelector(".actions");
   const buttons = document.querySelectorAll("[data-type]");
 
 
@@ -12,15 +15,8 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  const ws = new WebSocket('wss://mailruindicate-direction-pjkesroeld.now.sh');
-
-  // function setStatus (val) {
-  //   status.innerHTML = val;
-  // }
-
   function printMessage (message) {
     let newAction = document.createElement("div");
-    newAction.classList.add("action");
     newAction.innerHTML = message;
 
     actions.appendChild(newAction);
@@ -28,9 +24,13 @@ document.addEventListener("DOMContentLoaded", function() {
     newAction.scrollIntoView()
   }
 
-  // ws.onopen = () => setStatus('Online');
+  ws.onopen = () => {
+    wrapper.classList.add("actions__wrapper_connect");
+  };
 
-  // ws.onclose = () => setStatus('Disconnected');
+  ws.onclose = () => {
+    wrapper.classList.remove("actions__wrapper_connect");
+  };
 
   ws.onmessage = (resp) => {
     printMessage(resp.data)

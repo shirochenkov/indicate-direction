@@ -1,6 +1,6 @@
 const path = require("path");
 const express = require("express");
-const mobile = require('is-mobile');
+const MobileDetect = require('mobile-detect');
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -11,9 +11,12 @@ app.use(express.static(mainPath));
 const pathDesktop = path.resolve(__dirname, "../views/desktop.html");
 const pathMobile = path.resolve(__dirname, "../views/mobile.html");
 
-const pathCurrent = mobile() ? pathMobile : pathDesktop;
 
 app.get('/', (request, response) => {
+  const md = new MobileDetect(request.headers['user-agent']);
+
+  const pathCurrent = md.mobile() ? pathMobile : pathDesktop;
+
   response.sendFile(pathCurrent);
 });
 

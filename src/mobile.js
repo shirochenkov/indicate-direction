@@ -1,33 +1,25 @@
 document.addEventListener("DOMContentLoaded", function() {
-  const status = document.getElementById("status");
-  const app = document.getElementById("app");
-  const buttons = document.querySelectorAll("[data-type]");
+  const ws = new WebSocket('wss://mailruindicate-direction-ws-mjmrtjqmqa.now.sh');
 
+  const wrapper = document.querySelector(".actions__wrapper");
+  const buttons = document.querySelectorAll("[data-type]");
 
   for(let button of buttons) {
     button.addEventListener('click', (e) => {
       e.preventDefault();
-      let data = e.target.dataset.type;
+
+      let { target } = e;
+      let data = target.dataset.type || target.closest("[data-type]").dataset.type;
 
       ws.send(data);
     });
   }
 
-  const ws = new WebSocket('wss://mailruindicate-direction-pjkesroeld.now.sh');
+  ws.onopen = () => {
+    wrapper.classList.add("actions__wrapper_connect");
+  };
 
-  function setStatus (val) {
-    status.innerHTML = val;
-  }
-
-  function printMessage (message) {
-    app.innerHTML = message;
-  }
-
-  ws.onopen = () => setStatus('Online');
-
-  ws.onclose = () => setStatus('Disconnected');
-
-  ws.onmessage = (resp) => {
-    printMessage(resp.data)
+  ws.onclose = () => {
+    wrapper.classList.remove("actions__wrapper_connect");
   };
 });
